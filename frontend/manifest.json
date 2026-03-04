@@ -1,0 +1,17 @@
+{
+  "name": "IronWall+ Gamethon",
+  "short_name": "IronWall+",
+  "description": "Real-time cyberpunk network defense game.",
+  "start_url": "launcher.html",
+  "display": "standalone",
+  "background_color": "#030308",
+  "theme_color": "#030308",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

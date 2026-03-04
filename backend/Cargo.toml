@@ -1,0 +1,47 @@
+# Standalone workspace — keeps gamethon-demo independent of Titan-OS root workspace
+[workspace]
+
+[package]
+name = "ironwall-gamethon"
+version = "1.0.0"
+edition = "2021"
+authors = ["Aditya-9-6 <aditya@titansovereign.io>"]
+description = "IronWall+ Gamethon Demo — Cyberpunk Network Defense Game Backend"
+
+[dependencies]
+# --- Async Runtime ---
+tokio = { version = "1", features = ["full"] }
+
+# --- Proxy Layer (Cloudflare Pingora) ---
+pingora = { version = "0.6.0", features = ["lb"] }
+pingora-core = "0.6.0"
+pingora-proxy = "0.6.0"
+pingora-http = "0.6.0"
+
+# --- WebSocket / HTTP Server (Game Board Telemetry) ---
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["cors", "fs", "trace"] }
+
+# --- Serialization ---
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# --- Threat Classification ---
+regex = "1.10"
+lazy_static = "1.4"
+
+# --- Utilities ---
+uuid = { version = "1.6", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+async-trait = "0.1"
+anyhow = "1.0"
+bytes = "1.5"
+futures = "0.3"
+tokio-tungstenite = "0.24"
+
+[[bin]]
+name = "ironwall-gamethon"
+path = "src/main.rs"

@@ -1,0 +1,27 @@
+# Rust build artifacts (large compiled binaries - keep repo lightweight)
+/backend/target/
+C:/ironwall-gamethon-target/
+
+# Lock file is fine to keep
+# Cargo.lock kept intentionally
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Logs
+*.log
+*.log.*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+
+# Temp / test files
+frontend/crash_test.js
+backend/crash.log

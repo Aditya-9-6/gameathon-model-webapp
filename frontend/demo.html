@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRONWALL+ | MASTER DEMO MODE</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #030308;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Defense Side (Left) */
+        #defense-frame {
+            flex: 1;
+            border: none;
+            height: 100%;
+        }
+
+        /* Attacker Side (Right) */
+        #attacker-container {
+            width: 400px;
+            background: #0a0a12;
+            border-left: 2px solid #00f5ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            transition: width 0.5s ease;
+        }
+
+        #attacker-container.hidden {
+            width: 0;
+            overflow: hidden;
+            border-left: none;
+        }
+
+        /* Phone Frame Simulation */
+        .phone-frame {
+            width: 340px;
+            height: 700px;
+            background: #000;
+            border: 12px solid #1a1a2e;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
+            overflow: hidden;
+        }
+
+        /* Notch */
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #1a1a2e;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+
+        #attacker-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Toggle Button */
+        #toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: 420px;
+            background: rgba(3, 10, 22, 0.8);
+            border: 1px solid #00f5ff;
+            color: #00f5ff;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1000;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            transition: right 0.5s ease;
+        }
+
+        #toggle-btn.shifted {
+            right: 20px;
+        }
+
+        .label {
+            color: #00f5ff;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="toggle-btn">HIDE CONTROLLER</button>
+
+    <iframe id="defense-frame" src="index.html"></iframe>
+
+    <div id="attacker-container">
+        <div class="label">MOBILE CONTROLLER SIMULATION</div>
+        <div class="phone-frame">
+            <iframe id="attacker-iframe" src="attacker.html"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('toggle-btn');
+        const container = document.getElementById('attacker-container');
+
+        btn.onclick = () => {
+            container.classList.toggle('hidden');
+            btn.classList.toggle('shifted');
+            btn.textContent = container.classList.contains('hidden') ? 'SHOW CONTROLLER' : 'HIDE CONTROLLER';
+        };
+
+        // Sync audio enable: when user clicks start on demo, trigger audio on both iframes
+        window.addEventListener('mousedown', () => {
+            const def = document.getElementById('defense-frame').contentWindow;
+            const atk = document.getElementById('attacker-iframe').contentWindow;
+            if (def.audio) def.audio.init();
+            if (atk.audio) atk.audio.init();
+        }, { once: true });
+    </script>
+</body>
+
+</html>
