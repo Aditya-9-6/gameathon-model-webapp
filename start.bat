@@ -31,12 +31,16 @@ taskkill /F /IM ironwall-gamethon.exe /T >nul 2>&1
 start "IronWall+ Backend [DO NOT CLOSE]" powershell -NoExit -ExecutionPolicy Bypass -File "g:\My Drive\IronWall-Gamethon\watchdog.ps1"
 
 :: 2. Start the Frontend Server
-echo [2/2] 🔷 Serving Frontend UI (Port 3000)...
+echo [2/3] 🔷 Serving Frontend UI (Port 3000)...
 cd frontend
 start "🛡️ IronWall Frontend" cmd /k "node serve.js"
 cd ..
 
-:: 3. Open the Launcher
+:: 3. Start Ollama AI Consultant
+echo [3/3] 🤖 Starting Ollama AI Consultant (Phi-3)...
+start "Ollama Engine (AI Consultant)" cmd /k "title Ollama Engine && ollama serve"
+
+:: 4. Open the Launcher
 echo.
 echo 🚀 Opening Launcher Portal in 5 seconds...
 timeout /t 5 >nul
