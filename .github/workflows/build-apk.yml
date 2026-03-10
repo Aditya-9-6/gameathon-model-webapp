@@ -1,0 +1,73 @@
+name: Build Android APK
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Create Capacitor App
+        run: |
+          mkdir cap_app
+          cd cap_app
+          npm init -y
+          npm install @capacitor/cli @capacitor/core @capacitor/android
+          
+          cat <<EOF > capacitor.config.json
+          {
+            "appId": "com.gamethon.ironwall",
+            "appName": "IronWall",
+            "webDir": "www",
+            "bundledWebRuntime": false
+          }
+          EOF
+          
+          mkdir www
+          cp -r ../frontend/* www/
+          
+          # Gamethon app natively opens the mobile controller Lobby
+          mv www/index.html www/game_board.html
+          mv www/lobby.html www/index.html
+          
+          npx cap add android
+
+      - name: Build Android APK
+        run: |
+          cd cap_app/android
+          ./gradlew assembleDebug
+
+      - name: Commit and Push APK
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch
+          git pull
+          
+          cp cap_app/android/app/build/outputs/apk/debug/app-debug.apk public_site/ironwall-gamethon.apk
+          cp cap_app/android/app/build/outputs/apk/debug/app-debug.apk frontend/ironwall-gamethon.apk
+          
+          git add public_site/ironwall-gamethon.apk frontend/ironwall-gamethon.apk
+          git commit -m "Auto-generated real Android APK via GitHub Actions 🤖📱" || echo "No changes to commit"
+          git push
