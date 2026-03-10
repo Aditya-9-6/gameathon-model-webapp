@@ -113,15 +113,26 @@
 
             <div class="apk-info">
                 <span>Version: v3.0 // God Protocol</span>
-                <span>Size: ~12 MB</span>
-                <span>Requires: Android 11+</span>
+                <span>Requires: Android 11+ (Mobile/Tablet) OR Windows 10+ (Laptop)</span>
             </div>
 
-            <!-- In a real deployment, href points to the actual APK url on S3/Render/GitHub Releases -->
-            <a href="ironwall-gamethon.apk" class="cyber-btn primary-btn massive-btn" download>
-                <span class="btn-glitch"></span>
-                <span class="btn-text">⬇ DOWNLOAD APK</span>
-            </a>
+            <div class="download-buttons-container"
+                style="display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+                <!-- Mobile / Tablet APK Link -->
+                <a href="ironwall-gamethon.apk" class="cyber-btn primary-btn massive-btn" download>
+                    <span class="btn-glitch"></span>
+                    <span class="btn-text">⬇ MOBILE & TABLET (APK)</span>
+                </a>
+
+                <!-- Laptop / PC EXE Link -->
+                <a href="https://github.com/Aditya-9-6/gameathon-model/actions/workflows/build-desktop.yml"
+                    class="cyber-btn secondary-btn massive-btn" target="_blank"
+                    style="border-color: #a855f7; color: #a855f7; box-shadow: 0 0 15px rgba(168,85,247,0.3);">
+                    <span class="btn-glitch"></span>
+                    <span class="btn-text">⬇ LAPTOP & DESKTOP (EXE)</span>
+                </a>
+            </div>
+
             <div class="sys-msg typing-effect">Waiting for operator authorization...</div>
         </div>
     </section>
