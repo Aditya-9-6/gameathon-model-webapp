@@ -64,8 +64,20 @@ jobs:
           cd electron_app
           npm run build
 
-      - name: Upload Windows Asset to Release or Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: IronWall-Windows-Exe
-          path: electron_app/dist/*.exe
+      - name: Commit and Push EXE
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch
+          git pull
+          
+          # Remove any previous EXEs to avoid duplicates if name changes
+          del public_site\*.exe 2>nul || echo "None to delete"
+          del frontend\*.exe 2>nul || echo "None to delete"
+          
+          copy "electron_app\dist\*.exe" "public_site\ironwall-gamethon-desktop.exe"
+          copy "electron_app\dist\*.exe" "frontend\ironwall-gamethon-desktop.exe"
+          
+          git add public_site/ironwall-gamethon-desktop.exe frontend/ironwall-gamethon-desktop.exe
+          git commit -m "Auto-generated real Windows Desktop App via GitHub Actions 🤖💻" || echo "No changes to commit"
+          git push
