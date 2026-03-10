@@ -15,14 +15,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Create Electron App
+        shell: cmd
         run: |
           mkdir electron_app
           cd electron_app
@@ -60,11 +61,13 @@ jobs:
           npm pkg set build.directories.output="dist"
 
       - name: Build Windows .EXE
+        shell: cmd
         run: |
           cd electron_app
           npm run build
 
       - name: Commit and Push EXE
+        shell: cmd
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
