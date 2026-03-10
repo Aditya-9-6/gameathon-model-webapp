@@ -1,0 +1,71 @@
+name: Build Windows/Mac Desktop App
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/build-desktop.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-desktop:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Create Electron App
+        run: |
+          mkdir electron_app
+          cd electron_app
+          npm init -y
+          npm install electron electron-builder rimraf
+          
+          # Copy frontend files
+          mkdir app
+          xcopy "..\frontend\*" "app\" /E /I
+          
+          # Rename demo.html to index.html for the desktop app entry point
+          ren "app\index.html" "defense_board.html"
+          ren "app\demo.html" "index.html"
+          
+          # Create main.js
+          echo const { app, BrowserWindow } = require('electron') > main.js
+          echo const path = require('path') >> main.js
+          echo function createWindow () { >> main.js
+          echo   const win = new BrowserWindow({ >> main.js
+          echo     width: 1920, >> main.js
+          echo     height: 1080, >> main.js
+          echo     fullscreen: true, >> main.js
+          echo     autoHideMenuBar: true, >> main.js
+          echo     webPreferences: { nodeIntegration: true } >> main.js
+          echo   }) >> main.js
+          echo   win.loadFile('app/index.html') >> main.js
+          echo } >> main.js
+          echo app.whenReady().then(createWindow) >> main.js
+          
+          # Update package.json
+          npm pkg set main="main.js"
+          npm pkg set scripts.build="electron-builder --win --x64"
+          npm pkg set build.appId="com.ironwall.desktop"
+          npm pkg set build.productName="IronWall Plus Demo"
+          npm pkg set build.directories.output="dist"
+
+      - name: Build Windows .EXE
+        run: |
+          cd electron_app
+          npm run build
+
+      - name: Upload Windows Asset to Release or Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: IronWall-Windows-Exe
+          path: electron_app/dist/*.exe
