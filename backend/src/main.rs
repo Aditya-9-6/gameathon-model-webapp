@@ -478,12 +478,16 @@ async fn index() -> impl IntoResponse {
         <html>
         <head><title>IronWall+ Backend</title></head>
         <body style="background:#050510;color:#00f5ff;font-family:monospace;padding:40px">
-        <h1>⚡ IronWall+ Gamethon Backend ONLINE</h1>
-        <p>WebSocket telemetry endpoint: <code>ws://localhost:9001/ws</code></p>
-        <p>Proxy intercept layer: <code>http://localhost:8080</code></p>
-        <p>Health check: <code>http://localhost:9001/health</code></p>
-        <p style="color:#39ff14">Open <strong>frontend/index.html</strong> for the game board.</p>
-        <p style="color:#ff6b35">Open <strong>frontend/attacker.html</strong> for the Red Team controller.</p>
+        <h1>⚡ IronWall+ Backend Online</h1>
+        <div style="background:#0a0a20;padding:20px;border:1px solid #00f5ff;border-radius:10px">
+            <p><strong>Status:</strong> <span style="color:#39ff14">ACTIVE</span></p>
+            <p><strong>Security Engine:</strong> Pingora Layer-1</p>
+            <p><strong>Telemetry:</strong> Axum WebSocket</p>
+        </div>
+        <div style="margin-top:20px">
+            <p style="color:#39ff14">🛡️ <a href="index.html" style="color:#00f5ff;text-decoration:none">OPEN DEFENSE HUD →</a></p>
+            <p style="color:#ff6b35">🔴 <a href="attacker.html" style="color:#ff6b35;text-decoration:none">OPEN RED TEAM PANEL →</a></p>
+        </div>
         </body>
         </html>
         "#,
