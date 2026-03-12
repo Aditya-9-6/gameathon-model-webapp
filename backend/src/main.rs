@@ -545,6 +545,12 @@ async fn main() -> Result<()> {
             .and_then(|p| p.parse::<u16>().ok())
             .unwrap_or(8080);
         let addr = format!("0.0.0.0:{}", port);
+        
+        // Re-added the missing proxy_service declaration
+        let proxy = IronWallProxy::new(tx_clone);
+        let mut proxy_service =
+            pingora_proxy::http_proxy_service(&server.configuration, proxy);
+            
         proxy_service.add_tcp(&addr);
 
         info!("🛡️  Pingora proxy listening on {}", addr);
