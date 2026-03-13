@@ -22,7 +22,7 @@ Both talk to each other over **live WebSockets** through a genuine **Rust-powere
 | **Threat Engine** | Custom AST pattern parser | Detects SQLi, XSS, Path Traversal, CSRF, DDoS in real HTTP payloads. |
 | **Local AI** | **Phi-3-mini** via **Ollama** (`ironwall-ai` model) | Answers cyber questions 100% offline. Streams tokens in real-time. No API key. No internet. |
 | **Frontend** | Vanilla JS + WebGL canvas | 60fps particle defense grid, laser blast animations, world map pings. |
-| **Tunneling** | Localtunnel / Ngrok | Expose the demo to any phone globally in one click. |
+| **Deployment** | Render (Cloud / Free Tier) | Globally accessible via HTTPS. Backend and frontend hosted live. |
 
 ---
 
@@ -49,14 +49,13 @@ Both talk to each other over **live WebSockets** through a genuine **Rust-powere
 
 ---
 
-## 🚀 How to Launch (30 Seconds)
+## 🚀 How to Play the Live Demo (30 Seconds)
 
-```
-1. Double-click start.bat
-2. Open http://localhost:3000/demo.html on the big screen
-3. Share the attacker URL printed on screen with the judge's phone
-4. Say: "Try to break my firewall."
-```
+1. Open **[ironwall-frontend.onrender.com](https://ironwall-frontend.onrender.com)** on the big screen.
+2. Tell the judge to open **[ironwall-frontend.onrender.com/attacker.html](https://ironwall-frontend.onrender.com/attacker.html)** on their phone.
+3. Say: "Try to break my firewall."
+
+*(No local installation needed! The Rust WAF and WebGL dashboard are live in the cloud.)*
 
 ---
 

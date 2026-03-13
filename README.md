@@ -4,7 +4,18 @@
 
 ---
 
-## Quick Start (2 steps)
+## 🚀 Live Demo (Cloud Deployment)
+
+The project is deployed on Render and ready to test instantly:
+
+- 🛡️ **Defense Grid (Big Screen)**: [ironwall-frontend.onrender.com](https://ironwall-frontend.onrender.com)
+- 🗡️ **Attacker Panel (Phone)**: [ironwall-frontend.onrender.com/attacker.html](https://ironwall-frontend.onrender.com/attacker.html)
+
+No installation required! Just open the links and start attacking.
+
+---
+
+## Local Quick Start (Optional)
 
 ### 1. Start the Rust backend
 ```powershell

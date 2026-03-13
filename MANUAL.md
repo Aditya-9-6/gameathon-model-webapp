@@ -80,26 +80,24 @@ a BLOCKED event back to ALL connected clients → Defense Grid displays it.
 
 ---
 
-## 3. How to Start the System
+## 3. How to Access the Live Demo
 
-### Step 1: Run `start.bat`
-Double-click the `start.bat` file in the root project folder. This opens **two black terminal windows**:
-- **Terminal 1**: Runs `node serve.js` → serves the frontend on `http://localhost:3000`
-- **Terminal 2**: Runs `cargo run` in the backend folder → starts the Rust WebSocket server on `ws://localhost:9001/ws`
+The fastest way to experience IronWall+ is via our live cloud deployment on Render. No installation or local compilation is required!
 
-> ⚠️ **Important**: Do NOT close either terminal window during your presentation. If you close them, the servers stop and attacks will no longer reach the defense grid!
-
-### Step 2: Open the URLs
+### Target URLs
 | URL | What you see |
 |---|---|
-| `http://localhost:3000/` | Defense Grid (main screen) |
-| `http://localhost:3000/attacker.html` | Attacker Control Panel |
-| `http://localhost:3000/demo.html` | Split-screen demo mode |
+| `https://ironwall-frontend.onrender.com` | Defense Grid (project this on the main screen) |
+| `https://ironwall-frontend.onrender.com/attacker.html` | Attacker Control Panel (open this on phones) |
+| `https://ironwall-frontend.onrender.com/demo.html` | Split-screen demo mode |
 
 ### Mobile Access
-On the same Wi-Fi network, anyone can access the attacker panel from their phone. Replace `localhost` with your computer's local IP address. Example: `http://192.168.1.5:3000/attacker.html`.
+Judges can simply navigate to `https://ironwall-frontend.onrender.com/attacker.html` on their mobile browsers using regular 4G/5G data. They do *not* need to be on the same Wi-Fi network.
 
-To find your local IP, open Command Prompt and type: `ipconfig`. Look for "IPv4 Address".
+### Local Development Start (Optional)
+If you wish to run the full Rust stack locally instead of using the cloud version:
+1. Double-click `start.bat` to launch both the Node.js frontend server (Port 3000) and the Rust backend proxy (Port 9001/8080).
+2. Access locally via `http://localhost:3000`.
 
 ---
 
