@@ -827,6 +827,10 @@ function initGlossary() {
     document.getElementById('knowledge-btn').onclick = () => {
         document.getElementById('glossary-panel').classList.toggle('open');
     };
+
+    document.getElementById('close-glossary').addEventListener('click', () => {
+        document.getElementById('glossary-panel').classList.remove('open');
+    });
 }
 initGlossary();
 
