@@ -1138,6 +1138,23 @@ function enforceRole() {
     }
 }
 
+// ── Lobby Code Display ──────────────────────────────────────────────────────
+async function fetchLobbyCode() {
+    try {
+        const res = await fetch('/api/lobby-code');
+        const data = await res.json();
+        const badge = document.getElementById('lobby-code-badge');
+        const val = document.getElementById('lobby-code-val');
+        if (badge && val && data.code) {
+            val.textContent = data.code;
+            badge.style.display = 'flex';
+        }
+    } catch (e) {
+        console.warn('Lobby code not available (running in standalone/production mode?)');
+    }
+}
+
+fetchLobbyCode();
 enforceRole();
 initNavProxy();
  

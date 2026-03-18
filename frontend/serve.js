@@ -94,10 +94,20 @@ const server = http.createServer((req, res) => {
             }
         };
 
-        const proxyReq = http.request(options, (proxyRes) => {
-            res.writeHead(proxyRes.statusCode, proxyRes.headers);
-            proxyRes.pipe(res);
+        proxyReq.on('error', (err) => {
+            res.writeHead(502);
+            res.end(`[IronWall] AI Proxy Error: ${err.message}`);
         });
+        req.pipe(proxyReq);
+        return;
+    }
+
+    // ── Lobby Code API ──
+    if (urlPath === '/api/lobby-code') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ code: JOIN_CODE }));
+        return;
+    }
 
         proxyReq.on('error', (err) => {
             console.error(`[LLM Proxy Error] ${err.message}`);
