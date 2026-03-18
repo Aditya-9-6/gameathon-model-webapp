@@ -463,7 +463,7 @@ async fn health() -> impl IntoResponse {
     axum::Json(serde_json::json!({
         "status": "ONLINE",
         "system": "IronWall+ Gamethon Demo",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "layers": {
             "proxy": "Pingora:8080",
             "telemetry_ws": "axum:9001"
