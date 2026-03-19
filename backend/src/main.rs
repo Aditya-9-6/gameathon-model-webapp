@@ -463,41 +463,35 @@ async fn health() -> impl IntoResponse {
     axum::Json(serde_json::json!({
         "status": "ONLINE",
         "system": "IronWall+ Gamethon Demo",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "layers": {
             "proxy": "Pingora:8080",
-            "telemetry_ws": "axum:9001"
+            "telemetry_ws": "axum:9001",
+            "engine": "Hard-Embedded Static Assets"
         }
     }))
 }
 
-/// Serve the main frontend index.html from the filesystem
-async fn serve_root(state: State<AppState>) -> impl IntoResponse {
-    serve_html(State(state.frontend_path.clone()), "index.html").await
+// ── Embedded Static Assets ──
+const INDEX_HTML: &str = include_str!("../../frontend/index.html");
+const UNIFIED_HTML: &str = include_str!("../../frontend/unified.html");
+const ATTACKER_HTML: &str = include_str!("../../frontend/attacker.html");
+const LOBBY_HTML: &str = include_str!("../../frontend/lobby.html");
+
+async fn serve_unified() -> impl IntoResponse {
+    axum::response::Html(UNIFIED_HTML).into_response()
 }
 
-async fn serve_unified(state: State<AppState>) -> impl IntoResponse {
-    serve_html(State(state.frontend_path.clone()), "unified.html").await
+async fn serve_attacker() -> impl IntoResponse {
+    axum::response::Html(ATTACKER_HTML).into_response()
 }
 
-async fn serve_attacker(state: State<AppState>) -> impl IntoResponse {
-    serve_html(State(state.frontend_path.clone()), "attacker.html").await
+async fn serve_lobby() -> impl IntoResponse {
+    axum::response::Html(LOBBY_HTML).into_response()
 }
 
-async fn serve_lobby(state: State<AppState>) -> impl IntoResponse {
-    serve_html(State(state.frontend_path.clone()), "lobby.html").await
-}
-
-async fn serve_html(State(frontend_path): State<String>, filename: &str) -> impl IntoResponse {
-    let path = std::path::Path::new(&frontend_path).join(filename);
-    info!("📄 Serving HTML: {:?}", path);
-    match tokio::fs::read_to_string(path).await {
-        Ok(html) => axum::response::Html(html).into_response(),
-        Err(e) => {
-            error!("❌ HTML Not Found: {:?} | error: {}", filename, e);
-            axum::response::IntoResponse::into_response((axum::http::StatusCode::NOT_FOUND, format!("{} not found", filename)))
-        }
-    }
+async fn serve_root() -> impl IntoResponse {
+    axum::response::Html(INDEX_HTML).into_response()
 }
 
 async fn get_lobby_code() -> impl IntoResponse {
