@@ -237,7 +237,7 @@
       </div>
       <div class="ai-chat-config">
         <label style="font-size:0.7rem; color:#aaa;">Local API Endpoint (OpenAI Format):</label>
-        <input type="text" id="ai-endpoint-url" value="http://localhost:11434/api/chat"
+        <input type="text" id="ai-endpoint-url" value=""
           style="width:100%; padding:4px; font-size:0.75rem; background:#000; color:#00f5ff; border:1px solid #005a9e; margin-top:4px;">
         <label style="font-size:0.7rem; color:#aaa; margin-top:5px; display:block;">Model Name:</label>
         <input type="text" id="ai-model-name" value="tinyllama"
@@ -257,9 +257,9 @@
 
   </div> <!-- End #app -->
 
-  <script src="recorder.js"></script>
-  <script src="chatbot.js"></script>
-  <script src="game.js"></script>
+  <script src="recorder.js?v=2"></script>
+  <script src="chatbot.js?v=2"></script>
+  <script src="game.js?v=2"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
