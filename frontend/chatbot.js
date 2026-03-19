@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hostParam) {
         API_BASE = (hostParam.includes('://')) ? hostParam : `http://${hostParam}`;
-    } else if (window.location.hostname.includes('onrender.com')) {
-        API_BASE = `https://ironwall-backend.onrender.com`;
     } else {
         API_BASE = `${window.location.protocol}//${window.location.host}`;
     }

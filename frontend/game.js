@@ -20,9 +20,6 @@ if (wsParam) {
 } else if (hostParam) {
     API_BASE = (hostParam.includes('://')) ? hostParam : `http://${hostParam}`;
     WS_URL = (hostParam.includes('onrender.com')) ? `wss://${hostParam}/ws` : `ws://${hostParam}/ws`;
-} else if (window.location.hostname.includes('onrender.com')) {
-    API_BASE = `https://ironwall-backend.onrender.com`;
-    WS_URL = `wss://ironwall-backend.onrender.com/ws`;
 } else {
     API_BASE = `${window.location.protocol}//${window.location.host}`;
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
